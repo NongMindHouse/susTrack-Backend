@@ -3,14 +3,45 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
+model Session {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
+  user      User     @relation(fields: [userId], references: [id])
+  createAt  DateTime @default(now())
+  expiresAt DateTime
+}
+
 model User {
-  id        Int     @id @default(autoincrement())
-  email     String  @unique
-  userName  String?
-  firstName String?
-  lastName  String?
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  email      String    @unique
+  profileUrl String?
+  userName   String?
+  firstName  String?
+  lastName   String?
+  Session    Session[]
+  Project    Project[]
+}
+
+model Project {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  description String?
+  bannerUrl   String?
+  websiteUrl  String?
+  category    String
+  contact     String?
+  createBy    String   @db.ObjectId
+  user        User     @relation(fields: [createBy], references: [id])
+  createAt    DateTime @default(now())
+  SDG         SDG[]
+}
+
+model SDG {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  projectId String  @db.ObjectId
+  project   Project @relation(fields: [projectId], references: [id])
 }
