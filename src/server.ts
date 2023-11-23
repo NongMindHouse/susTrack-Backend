@@ -18,10 +18,10 @@ app.use(cookieParser())
 app.use(express.urlencoded({ extended: true }));
 dotenv.config();
 
-admin.initializeApp({
-  // credential: admin.credential.cert(firebaseConfig),
-  storageBucket: "retropgf-hub.appspot.com",
-});
+// admin.initializeApp({
+//   credential: admin.credential.cert(firebaseConfig),
+//   storageBucket: "retropgf-hub.appspot.com",
+// });
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Express TypeScript Server is Running");

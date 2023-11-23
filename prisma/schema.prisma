@@ -32,7 +32,7 @@ model Project {
   description String?
   bannerUrl   String?
   websiteUrl  String?
-  category    String
+  category    String?
   contact     String?
   createBy    String   @db.ObjectId
   user        User     @relation(fields: [createBy], references: [id])
