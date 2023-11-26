@@ -11,5 +11,3 @@ services:
       - .env
     command: node dist/server.js
     restart: on-failure
-    depends_on:
-      - mysql
