@@ -6,22 +6,21 @@ import dotenv from "dotenv"
 import cors from "cors";
 
 import { indexRouter } from "@/routes";
-// import firebaseConfig from "./config/firebase-config.json"
+import firebaseConfig from "./config/firebase-config.json"
 const app: Express = express();
 const port = process.env.PORT || 8080;
 
 app.use(helmet());
-app.use(cors({ origin: "", credentials: true }));
+app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 
 app.use(express.json());
 app.use(cookieParser())
 app.use(express.urlencoded({ extended: true }));
 dotenv.config();
 
-// admin.initializeApp({
-//   credential: admin.credential.cert(firebaseConfig),
-//   storageBucket: "retropgf-hub.appspot.com",
-// });
+admin.initializeApp({
+  credential: admin.credential.cert(firebaseConfig),
+});
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Express TypeScript Server is Running");
