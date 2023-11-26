@@ -5,7 +5,7 @@ export const Create = async (userId: string, uuid: string) => {
     const expireTime = setExpireDate(7)
     await Session.create({
         data: {
-            id: uuid,
+            uuid: uuid,
             userId: userId,
             expiresAt: expireTime
         }
@@ -14,7 +14,7 @@ export const Create = async (userId: string, uuid: string) => {
 
 export const Validate = async (id: string) => {
     const session = await Session.findUnique({
-        where: { id: id }
+        where: { uuid: id }
     })
 
     if (!session) {
@@ -27,7 +27,7 @@ export const Validate = async (id: string) => {
         // delete session
         await Session.delete({
             where: {
-                id: id
+                uuid: id
             },
         })
         return null
@@ -38,7 +38,7 @@ export const Validate = async (id: string) => {
 export const Delete = async (id: string) => {
     await Session.delete({
         where: {
-            id: id
+            uuid: id
         },
     })
 }

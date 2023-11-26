@@ -4,4 +4,4 @@ const prisma = new PrismaClient();
 export const Session = prisma.session;
 export const User = prisma.user;
 export const Project = prisma.project;
-export const SDG = prisma.sDG;
+// export const SDG = prisma.sDG;

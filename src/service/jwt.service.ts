@@ -1,5 +1,4 @@
 import jwt, { JwtPayload } from "jsonwebtoken";
-import * as sessionService from "@/service/session.service";
 const secret = process.env.JWT_SECRET;
 
 if (!secret) {

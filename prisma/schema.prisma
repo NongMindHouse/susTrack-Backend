@@ -9,6 +9,7 @@ datasource db {
 
 model Session {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  uuid      String   @unique
   userId    String   @db.ObjectId
   user      User     @relation(fields: [userId], references: [id])
   createAt  DateTime @default(now())
@@ -23,25 +24,32 @@ model User {
   firstName  String?
   lastName   String?
   Session    Session[]
-  Project    Project[]
+  // Project    Project[]
 }
 
 model Project {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  name        String
-  description String?
-  bannerUrl   String?
-  websiteUrl  String?
-  category    String?
-  contact     String?
-  createBy    String   @db.ObjectId
-  user        User     @relation(fields: [createBy], references: [id])
-  createAt    DateTime @default(now())
-  SDG         SDG[]
+  id           String  @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  description  String?
+  bannerUrl    String?
+  websiteUrl   String?
+  selectedSDG  Int?
+  latitude     String?
+  longitude    String?
+  organization String?
+  date         String?
+  periodTime   String?
+  SDGList      String
+  // createBy     String    @db.ObjectId
+  // user         User      @relation(fields: [createBy], references: [id])
+  // createAt     DateTime  @default(now())
+  // SDG          SDG[]
 }
 
-model SDG {
-  id        String  @id @default(auto()) @map("_id") @db.ObjectId
-  projectId String  @db.ObjectId
-  project   Project @relation(fields: [projectId], references: [id])
-}
+// model SDG {
+//   id         String  @id @default(auto()) @map("_id") @db.ObjectId
+//   projectId  String  @db.ObjectId
+//   project    Project @relation(fields: [projectId], references: [id])
+//   number     Int
+//   indicators String
+// }

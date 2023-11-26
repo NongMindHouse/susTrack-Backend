@@ -46,6 +46,7 @@ export const Login = async (req: Request, res: Response) => {
       res.status(403).send({ success: false, message: "No id-token Provide" });
     }
   } catch (err) {
+    console.log(err);
     return res.status(500).send({ success: false, message: "" })
   }
 };
@@ -94,4 +95,10 @@ export const UpdateUser = async (req: Request, res: Response) => {
   } catch (error) {
     return res.status(500).send({ success: false });
   }
+};
+
+export const Logout = async (req: Request, res: Response) => {
+  await sessionService.Delete(req.uuid);
+  res.status(200).clearCookie("ssid");
+  res.end();
 };
